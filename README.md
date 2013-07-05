@@ -4,7 +4,7 @@ Oknesset-vagrant
 A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto linux machine for [Okneeset](https://github.com/hasadna/Open-Knesset) hacking
 
 
-basically:
+##for starters:
 
 1. Install [vagrant](http://www.vagrantup.com/)
 2. Install [Virtualbox](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2) . notice you need to install version 4.2.10 since the 4.2.14/6 has some bug with vagrant. 
@@ -23,16 +23,31 @@ basically:
 
 
 
-More resources (besides the [docs](http://docs.vagrantup.com/v2/)):
+##More resources (besides the [docs](http://docs.vagrantup.com/v2/)):
 
 A [hebrew Blog post](http://4p-tech.co.il/blog/?p=1741) I wrote about using vagrant.
 
-Contributing:
+##Contributing:
 
-quite a lot to do here, look at the github Issue tracker
+Quite a lot to do here, look at the github Issue tracker
 
-Technology:
+##tweaks and bugs
+This vagrantfiles runs (and provisions) a **Headless** linux virtual machine. "headless" as a zombie, no GUI. If you want/need to work with the virtual machine gui (and take all the performance hit) you need to uncomment the following lines in the vagrantfile:
 
-using a puppet script in ./manifests for provisoning.
+     config.vm.provider :virtualbox do |vb|
+  #  # Don't boot with headless mode
+    vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
+  	end
+Don't uncomment the vb.customize unless you mean to change something there
+for common vagrant problem look at the Vagrant github [wiki page](https://github.com/mitchellh/vagrant/wiki/%60vagrant-up%60-hangs-at-%22Waiting-for-VM-to-boot.-This-can-take-a-few-minutes%22)
+##Technology:
 
-License: [MIT](http://opensource.org/licenses/MIT) (do anything with this)
+using vagrant to download setup and access a virtual headless linux machine.  
+
+using a [puppet](https://puppetlabs.com/) script in ./manifests for provisoning.
+
+##License:
+[MIT](http://opensource.org/licenses/MIT) (do anything with this)
