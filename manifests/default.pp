@@ -9,6 +9,7 @@ package {
 	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
 	require => Exec["apt-get update"],
+	before=>["lxml","python-imaging"]
 	}
 
 #define build_dep($pkgname){
