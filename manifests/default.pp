@@ -1,11 +1,42 @@
+# Run apt-get update when anything beneath /etc/apt/ changes
+#taken from https://blog.kumina.nl/2010/11/puppet-tipstricks-running-apt-get-update-only-when-needed/
 exec { "apt-get update":
-  path => "/usr/bin",
+command => "/usr/bin/apt-get update",
+onlyif => "/bin/sh -c '[ ! -f /var/cache/apt/pkgcache.bin ] || /usr/bin/find /etc/apt/* -cnewer /var/cache/apt/pkgcache.bin | /bin/grep . > /dev/null'",
 }
 
 package {
-	["build-essential","apache2",git","python","python-dev","python-setuptools", "python-pip"]:
+	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
+	require => Exec["apt-get update"],
 	}
+
+#define build_dep($pkgname){
+#	exec {
+#	"builddepend_$pkgname":
+#   commmand => "apt-get build-dep $pkgname",
+#	}
+#}
+
+#build_dep{
+#	"python-imaging":
+#	pkgname => "python-imaging";
+#
+#	"python-lxml":
+#	pkgname => "python-lxml";
+#}
+
+#exec{"install apt module":
+	
+#	command => "puppet module install puppetlabs/apt -i /vagrant/modules",
+#}
+
+class { 'apt':
+		}
+include apt
+
+apt::builddep { ["python-imaging","python-lxml"]:
+ }
 
 package {"python-virtualenv":
 	ensure => present,
@@ -17,7 +48,20 @@ package {"sphinx":
 	require => Package["python-pip"],
 	provider => pip
 }
-
-exec { "apt-get update":
-  path => "/usr/bin",
+#service {'apache2':
+#	ensure => running,
+#	enable => true,
+#	subscribe => File["/etc/apache2/apache2.conf"]
+#}
+# a comment 
+class mysql{
+	package {
+	["mysql-server", "mysql-client"]:
+	ensure => present,
+	}
+#	service {"mysql-server":
+#	ensure => running,
+#	}
 }
+#the mysql class won't work if we don't include
+include mysql
