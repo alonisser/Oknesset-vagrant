@@ -4,7 +4,7 @@ Oknesset-vagrant
 A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto linux machine for [Okneeset](https://github.com/hasadna/Open-Knesset) hacking
 
 
-##for starters:
+##for starters (usage):
 
 1. Install [vagrant](http://www.vagrantup.com/)
 2. Install [Virtualbox](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2) . notice you need to install version 4.2.10 since the 4.2.14/6 has some bug with vagrant. 
@@ -27,10 +27,6 @@ A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto
 
 A [hebrew Blog post](http://4p-tech.co.il/blog/?p=1741) I wrote about using vagrant.
 
-##Contributing:
-
-Quite a lot to do here, look at the github Issue tracker
-
 ##tweaks and bugs
 This vagrantfiles runs (and provisions) a **Headless** linux virtual machine. "headless" as a zombie, no GUI. If you want/need to work with the virtual machine gui (and take all the performance hit) you need to uncomment the following lines in the vagrantfile:
 
@@ -47,7 +43,13 @@ for common vagrant problem look at the Vagrant github [wiki page](https://github
 
 using vagrant to download setup and access a virtual headless linux machine.  
 
-using a [puppet](https://puppetlabs.com/) script in ./manifests for provisoning.
+using a standalone (without a puppetmaster) [puppet](https://puppetlabs.com/) script in ./manifests for provisoning.
+
+##Contributing:
+
+Quite a lot to do here, look at the github Issue tracker.
+
+I recommend to install the **[puppet command line tool](http://docs.puppetlabs.com/guides/installation.html)** on the **host** machine to be able to check the puppet script
 
 ##License:
 [MIT](http://opensource.org/licenses/MIT) (do anything with this)
