@@ -11,10 +11,10 @@ A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto
 3.move to the command line and:
 
 
-   git clone git@github.com:alonisser/Oknesset-vagrant.git
-   cd oknesset-vagrant
-   git submodule update --init
-   vagrant up
+    git clone git@github.com:alonisser/Oknesset-vagrant.git
+    cd oknesset-vagrant
+    git submodule update --init
+    vagrant up
 
 4. ```vagrant up``` would download the virtual machine (ubunto linux precise pangolin) and set it up to oknesset dev with a puppet script. this should take some time and some linux bells and whistle.
 
