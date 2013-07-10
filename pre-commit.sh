@@ -1,11 +1,12 @@
 #!/bin/sh
 #from gist https://gist.github.com/fluxrad/2361452
-echo 'Trying to parse the puppet script'
+
 exec 1>&2
 
 for file in `git diff --name-only --cached | grep -E '\.(pp)'`
 do
     if [[ -f $file ]] 
+    echo "Trying to parse $file"
     then
         puppet parser validate --mode user $file
         if [[ $? -ne 0 ]]
