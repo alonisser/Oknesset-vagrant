@@ -9,35 +9,33 @@ package {
 	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
 	require => Exec["apt-get update"],
-	before=>["lxml","python-imaging"]
+	before=>Package["python-lxml","python-imaging"]
 	}
 
-#define build_dep($pkgname){
-#	exec {
-#	"builddepend_$pkgname":
-#   commmand => "apt-get build-dep $pkgname",
-#	}
+package {
+	["python-lxml","python-imaging"]:
+	ensure => present,
+}
+#class { 'apt':
+
+#		}
+#include apt
+
+#class{ 'apt':} -> apt::builddep { ["python-imaging","python-lxml"]:
+#	require => Class['apt']	
+# }
+
+#class {'nodejs':
+
 #}
+#include nodejs
 
-#build_dep{
-#	"python-imaging":
-#	pkgname => "python-imaging";
-#
-#	"python-lxml":
-#	pkgname => "python-lxml";
+#package {"less":
+#	ensure => present,
+#	provider => 'npm',
+#	require => Package['npm'],
+
 #}
-
-#exec{"install apt module":
-	
-#	command => "puppet module install puppetlabs/apt -i /vagrant/modules",
-#}
-
-class { 'apt':
-		}
-include apt
-
-apt::builddep { ["python-imaging","python-lxml"]:
- }
 
 package {"python-virtualenv":
 	ensure => present,
