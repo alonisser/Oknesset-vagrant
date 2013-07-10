@@ -5,6 +5,17 @@ command => "/usr/bin/apt-get update",
 onlyif => "/bin/sh -c '[ ! -f /var/cache/apt/pkgcache.bin ] || /usr/bin/find /etc/apt/* -cnewer /var/cache/apt/pkgcache.bin | /bin/grep . > /dev/null'",
 }
 
+#package {"librarian-puppet":
+#		ensure =>present,
+#		provider => gem,
+#		}
+
+#exec {"librarian-puppet install":
+#	command => "librarian-puppet install",
+#	require => Package["librarian-puppet"],
+#	before => Class["apt"],
+#}
+
 package {
 	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
@@ -12,30 +23,27 @@ package {
 	before=>Package["python-lxml","python-imaging"]
 	}
 
-package {
-	["python-lxml","python-imaging"]:
-	ensure => present,
+class { 'apt':
+		#require => Exec["librarian-puppet install"],
+		}
+include apt
+
+class{ 'apt':} -> apt::builddep { ["python-imaging","python-lxml"]:
+	require => Class["apt"]	,
+ }
+
+class {'nodejs':
+		#require => Exec["librarian-puppet install"],
+
 }
-#class { 'apt':
+include nodejs
 
-#		}
-#include apt
+package {"less":
+	ensure => present,
+	provider => 'npm',
+	require => Package["npm"],
 
-#class{ 'apt':} -> apt::builddep { ["python-imaging","python-lxml"]:
-#	require => Class['apt']	
-# }
-
-#class {'nodejs':
-
-#}
-#include nodejs
-
-#package {"less":
-#	ensure => present,
-#	provider => 'npm',
-#	require => Package['npm'],
-
-#}
+}
 
 package {"python-virtualenv":
 	ensure => present,
@@ -53,14 +61,14 @@ package {"sphinx":
 #	subscribe => File["/etc/apache2/apache2.conf"]
 #}
 # a comment 
-class mysql{
-	package {
-	["mysql-server", "mysql-client"]:
-	ensure => present,
-	}
+#class mysql{
+#	package {
+#	["mysql-server", "mysql-client"]:
+#	ensure => present,
+#	}
 #	service {"mysql-server":
 #	ensure => running,
 #	}
-}
+#}
 #the mysql class won't work if we don't include
-include mysql
+#include mysql
