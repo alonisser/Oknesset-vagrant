@@ -5,17 +5,6 @@ command => "/usr/bin/apt-get update",
 onlyif => "/bin/sh -c '[ ! -f /var/cache/apt/pkgcache.bin ] || /usr/bin/find /etc/apt/* -cnewer /var/cache/apt/pkgcache.bin | /bin/grep . > /dev/null'",
 }
 
-#package {"librarian-puppet":
-#		ensure =>present,
-#		provider => gem,
-#		}
-
-#exec {"librarian-puppet install":
-#	command => "librarian-puppet install",
-#	require => Package["librarian-puppet"],
-#	before => Class["apt"],
-#}
-
 package {
 	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
@@ -24,7 +13,7 @@ package {
 	}
 
 class { 'apt':
-		#require => Exec["librarian-puppet install"],
+		
 		}
 include apt
 
@@ -33,7 +22,6 @@ class{ 'apt':} -> apt::builddep { ["python-imaging","python-lxml"]:
  }
 
 class {'nodejs':
-		#require => Exec["librarian-puppet install"],
 
 }
 include nodejs

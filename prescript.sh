@@ -1,11 +1,12 @@
 #!/bin/bash
+set -e
 echo 'provisioning librarian'
-if [ ! -f ./modules/.installed ]
+if [ ! -f /vagrant/modules/.installed ]
 then
-	echo 'installing libraria'
+	echo 'installing librarian'
 	gem install librarian-puppet
-	librarian-puppet install
-	touch modules/.installed
+	sudo touch /vagrant/modules/.installed
 else
 	echo 'librarian already installed once'
 fi
+librarian-puppet install

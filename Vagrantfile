@@ -18,6 +18,8 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 80, host: 3000
 
+
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   # config.vm.network :private_network, ip: "192.168.33.10"
@@ -37,13 +39,19 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider :virtualbox do |vb|
+   config.vm.provider :virtualbox do |vb|
   #   # Don't boot with headless mode
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-  #   vb.customize ["modifyvm", :id, "--memory", "1024"]
-  # end
+
+  # This allows symlinks to be created within the /vagrant root directory, 
+  # which is something librarian-puppet needs to be able to do. This might
+  # be enabled by default depending on what version of VirtualBox is used.
+  # taken from https://github.com/purple52/librarian-puppet-vagrant/blob/master/Vagrantfile
+  
+     vb.customize ["modifyvm", :id, "--memory", "1024", "setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+   end
   #
   # View the documentation for the provider you're using for more
   # information on available options.
@@ -65,8 +73,11 @@ Vagrant.configure("2") do |config|
   # #   content => "Welcome to your Vagrant-built virtual machine!
   # #               Managed by Puppet.\n"
   # # }
-  #
-  config.vm.provision :shell, :path => "prescript.sh"
+  
+  # a shell script to install puppet-module and let it run
+
+  config.vm.provision :shell, :path => "main.sh"
+
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
     puppet.manifest_file  = "default.pp"
