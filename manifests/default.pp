@@ -9,33 +9,33 @@ package {
 	["build-essential","apache2","git","python","python-dev","python-setuptools", "python-pip"]:
 	ensure => present,
 	require => Exec["apt-get update"],
-	before=>Package["python-lxml","python-imaging"]
+#	before=>Package["python-lxml","python-imaging"]
 	}
 
-package {
-	["python-lxml","python-imaging"]:
-	ensure => present,
-}
-#class { 'apt':
-
-#		}
-#include apt
-
-#class{ 'apt':} -> apt::builddep { ["python-imaging","python-lxml"]:
-#	require => Class['apt']	
-# }
-
-#class {'nodejs':
-
-#}
-#include nodejs
-
-#package {"less":
+#package {
+#	["python-lxml","python-imaging"]:
 #	ensure => present,
-#	provider => 'npm',
-#	require => Package['npm'],
-
 #}
+class { 'apt':
+
+		}
+include apt
+
+apt::builddep { ["python-imaging","python-lxml"]:
+	require => Class['apt']	
+ }
+
+class {'nodejs':
+
+}
+include nodejs
+
+package {"less":
+	ensure => present,
+	provider => 'npm',
+	require => Package['npm'],
+
+}
 
 package {"python-virtualenv":
 	ensure => present,
@@ -53,14 +53,8 @@ package {"sphinx":
 #	subscribe => File["/etc/apache2/apache2.conf"]
 #}
 # a comment 
-class mysql{
-	package {
-	["mysql-server", "mysql-client"]:
-	ensure => present,
-	}
-#	service {"mysql-server":
-#	ensure => running,
-#	}
-}
-#the mysql class won't work if we don't include
-include mysql
+
+#add postgresql
+#add mkdir /oknesset
+#add virtualenv
+#add python::pip install from requirement
