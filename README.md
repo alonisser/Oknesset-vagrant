@@ -18,7 +18,9 @@ A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto
     vagrant up
     ```
 
-4. ```vagrant up``` would download the virtual machine (ubunto linux precise pangolin) and set it up to oknesset dev with a puppet script. this should take some time and some linux bells and whistle.
+4. ```vagrant up``` would download the virtual machine (ubunto linux precise pangolin) and set it up to oknesset dev with a puppet script. this should take some time (15-20 minutes for the first time!) and some linux bells and whistle.
+
+Notice, this might end with some failure message. Most of the time you can just ignore it. If some of the dependencies don't work when you try to run. you can just ```apt-get --fix-missing``` after the ```vagrant ssh```.
 
 5.```vagrant ssh``` to log into the virtual machine
 
