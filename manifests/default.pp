@@ -12,17 +12,18 @@ package {
 #	before=>Package["python-lxml","python-imaging"]
 	}
 
+
 #package {
 #	["python-lxml","python-imaging"]:
 #	ensure => present,
 #}
-class { 'apt':
 
-		}
+class{ 'apt':}
+
 include apt
 
 apt::builddep { ["python-imaging","python-lxml"]:
-	require => Class['apt']	
+		
  }
 
 class {'nodejs':
@@ -30,6 +31,7 @@ class {'nodejs':
 }
 include nodejs
 
+>>>>>>> bfc9e89d8df30ed7e8e3605dfd940bd6c60b183f
 package {"less":
 	ensure => present,
 	provider => 'npm',
@@ -47,14 +49,36 @@ package {"sphinx":
 	require => Package["python-pip"],
 	provider => pip
 }
-#service {'apache2':
-#	ensure => running,
-#	enable => true,
-#	subscribe => File["/etc/apache2/apache2.conf"]
-#}
+
+service {'apache2':
+	ensure => running,
+	enable => true,
+	#subscribe => File["/etc/apache2/apache2.conf"]
+}
+
+#include postgresql
+class { 'postgresql':
+  charset => 'UTF8',
+}-> class { 'postgresql::server':
+config_hash => {
+    'ip_mask_deny_postgres_user' => '0.0.0.0/32',
+    'ip_mask_allow_all_users'    => '0.0.0.0/0',
+    'listen_addresses'           => '*',
+  },
+}
+
+class {'postgresql::client':
+	package_ensure => present,
+	}
+class {'postgresql::python':
+	package_ensure => present,
+	}
+
+postgresql::db { 'Oknessetdb':
+  user     => 'Oknessetdevuser',
+  password => 'devuserpassword', #change this after the setup 
+  require => Class["postgresql::server"]
+}
+
 # a comment 
 
-#add postgresql
-#add mkdir /oknesset
-#add virtualenv
-#add python::pip install from requirement
