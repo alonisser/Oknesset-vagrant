@@ -47,6 +47,7 @@ This vagrantfiles runs (and provisions) a **Headless** linux virtual machine. "h
     ''''ruby
 Don't uncomment the vb.customize unless you mean to change something there
 for common vagrant problem look at the Vagrant github [wiki page](https://github.com/mitchellh/vagrant/wiki/%60vagrant-up%60-hangs-at-%22Waiting-for-VM-to-boot.-This-can-take-a-few-minutes%22)
+More problems in my [gist](https://gist.github.com/alonisser/6225223)
 ##Technology:
 
 using vagrant to download setup and access a virtual headless linux machine.  
