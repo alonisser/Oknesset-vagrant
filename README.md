@@ -7,7 +7,8 @@ A vagrantfile + puppet scripts + some more setup scripts to set a virtual ubunto
 ##for starters (usage):
 
 1. Install [vagrant](http://www.vagrantup.com/)
-2. Install [Virtualbox](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2) . notice you need to install version 4.2.10/16 since the 4.2.14 has some bug with vagrant. 
+2. you should have a "hasadna" folder in the same folder you are goint to do ```git clone```
+3. Install [Virtualbox](https://www.virtualbox.org/wiki/Download_Old_Builds_4_2) . notice you need to install version 4.2.10/16 since the 4.2.14 has some bug with vagrant. 
 3.move to the command line and:
 
 
