@@ -79,13 +79,19 @@ service {'apache2':
 #  require => Class["postgresql::server"]
 #}
 
-# a comment 
+# from this part forward should be later seperated to a different manifest - a specifc one for Oknesset.
 
-# python::requirements { '/home/Open-Knesset/requirements.txt':
-#   virtualenv => '/home/Open-Knesset',
+vcsrepo {"/home/hasadna":
+	ensure => present,
+	provider => git,
+	source => "git@github.com:alonisser/Open-Knesset.git"	
+}
+ 
+#python::requirements { '/home/hasadna/Open-Knesset/requirements.txt':
+#   virtualenv => '/home/hasadna/Open-Knesset',
 # }
 
-# python::virtualenv { '/home/Open-Knesset':
+# python::virtualenv { '/home/hasadna/Open-Knesset':
 #   ensure       => present,
-#   requirements => '/home/Open-Knesset/requirements.txt',
+#   requirements => '/home/hasadna/Open-Knesset/requirements.txt',
 # }
