@@ -36,7 +36,7 @@ A [hebrew Blog post](http://4p-tech.co.il/blog/?p=1741) I wrote about using vagr
 ##tweaks and bugs
 This vagrantfiles runs (and provisions) a **Headless** linux virtual machine. "headless" as a zombie, no GUI. If you want/need to work with the virtual machine gui (and take all the performance hit) you need to uncomment the following lines in the vagrantfile:
 
-    '''ruby
+    ```ruby
        config.vm.provider :virtualbox do |vb|
     #  # Don't boot with headless mode
       vb.gui = true
@@ -44,7 +44,7 @@ This vagrantfiles runs (and provisions) a **Headless** linux virtual machine. "h
     #   # Use VBoxManage to customize the VM. For example to change memory:
     #   vb.customize ["modifyvm", :id, "--memory", "1024"]
     	end
-    '''ruby
+    ```ruby
 Don't uncomment the vb.customize unless you mean to change something there
 for common vagrant problem look at the Vagrant github [wiki page](https://github.com/mitchellh/vagrant/wiki/%60vagrant-up%60-hangs-at-%22Waiting-for-VM-to-boot.-This-can-take-a-few-minutes%22)
 More problems in my [gist](https://gist.github.com/alonisser/6225223)
