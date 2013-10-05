@@ -63,3 +63,7 @@ I recommend to install the **[puppet command line tool](http://docs.puppetlabs.c
 
 ##License:
 [MIT](http://opensource.org/licenses/MIT) (do anything with this)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/alonisser/oknesset-vagrant/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
